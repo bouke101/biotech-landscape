@@ -1,0 +1,10 @@
+streamlit
+pandas
+numpy
+plotly
+requests
+beautifulsoup4
+feedparser
+python-dotenv
+jupyter
+openpyxl
