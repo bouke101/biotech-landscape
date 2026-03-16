@@ -9,6 +9,7 @@ const links = [
   { href: '/investors',   label: 'Investors',  icon: '◈' },
   { href: '/deals',       label: 'Deal Flow',  icon: '◎' },
   { href: '/trends',      label: 'Trends',     icon: '⟋' },
+  { href: '/scraper',     label: 'Scraper',    icon: '⟳' },
 ]
 
 export function Nav() {

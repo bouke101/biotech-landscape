@@ -92,10 +92,54 @@ export interface Trend {
 export interface Database {
   public: {
     Tables: {
-      companies: { Row: Company; Insert: Partial<Company>; Update: Partial<Company> }
-      investors:  { Row: Investor; Insert: Partial<Investor>; Update: Partial<Investor> }
-      deals:      { Row: Deal; Insert: Partial<Deal>; Update: Partial<Deal> }
-      trends:     { Row: Trend; Insert: Partial<Trend>; Update: Partial<Trend> }
+      companies:        { Row: Company; Insert: Partial<Company>; Update: Partial<Company> }
+      investors:        { Row: Investor; Insert: Partial<Investor>; Update: Partial<Investor> }
+      deals:            { Row: Deal; Insert: Partial<Deal>; Update: Partial<Deal> }
+      trends:           { Row: Trend; Insert: Partial<Trend>; Update: Partial<Trend> }
+      scraper_jobs:     { Row: ScraperJob; Insert: Partial<ScraperJob>; Update: Partial<ScraperJob> }
+      scraped_articles: { Row: ScrapedArticle; Insert: Partial<ScrapedArticle>; Update: Partial<ScrapedArticle> }
     }
   }
+}
+
+export type ScraperStatus = 'running' | 'paused' | 'stopped' | 'completed' | 'failed'
+export type ScraperSignal = 'run' | 'pause' | 'stop'
+
+export interface ScraperJob {
+  id: string
+  run_id: string
+  trigger: 'scheduled' | 'manual'
+  status: ScraperStatus
+  signal: ScraperSignal
+  current_feed: string | null
+  feeds_total: number
+  feeds_done: number
+  articles_fetched: number
+  articles_new: number
+  error_message: string | null
+  started_at: string
+  paused_at: string | null
+  completed_at: string | null
+  created_at: string
+}
+
+export interface ScrapedArticle {
+  id: string
+  job_id: string | null
+  source: string
+  source_type: string
+  title: string
+  summary: string | null
+  source_url: string
+  published_at: string | null
+  raw_content: Record<string, unknown> | null
+  segments: string[]
+  deal_extracted: boolean
+  company_name_hint: string | null
+  amount_hint: string | null
+  round_type_hint: string | null
+  investors_hint: string[]
+  linked_deal_id: string | null
+  linked_company_id: string | null
+  created_at: string
 }

@@ -8,3 +8,4 @@ feedparser
 python-dotenv
 jupyter
 openpyxl
+supabase>=2.3.0
