@@ -1,0 +1,101 @@
+export type CompanyStage = 'Stealth' | 'Pre-seed' | 'Seed' | 'Series A' | 'Series B' | 'Series C' | 'Series D+' | 'Public' | 'Acquired'
+export type BusinessModel = 'B2B' | 'B2C' | 'Licensing' | 'Platform' | 'Mixed'
+export type InvestorType = 'VC' | 'CVC' | 'Family Office' | 'Government' | 'Accelerator' | 'Angel' | 'PE'
+export type DealType = 'Pre-seed' | 'Seed' | 'Series A' | 'Series B' | 'Series C' | 'Series D+' | 'Grant' | 'IPO' | 'M&A' | 'Convertible'
+export type Currency = 'USD' | 'EUR' | 'GBP'
+
+export interface Company {
+  id: string
+  name: string
+  slug: string
+  founded_year: number | null
+  hq_city: string | null
+  hq_country: string | null
+  hq_region: string | null
+  sectors: string[]
+  technology_platform: string | null
+  stage: CompanyStage | null
+  employees_approx: number | null
+  total_funding_usd: number | null
+  latest_valuation_usd: number | null
+  key_products: string | null
+  business_model: BusinessModel | null
+  partnerships: string | null
+  ceo: string | null
+  cso: string | null
+  cto: string | null
+  website: string | null
+  notes: string | null
+  on_watchlist: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface Investor {
+  id: string
+  name: string
+  slug: string
+  investor_type: InvestorType | null
+  hq_country: string | null
+  hq_region: string | null
+  focus_sectors: string[]
+  focus_stages: string[]
+  geographic_focus: string[]
+  fund_size_usd: number | null
+  typical_check_min: number | null
+  typical_check_max: number | null
+  notable_portfolio: string[]
+  key_partners: string | null
+  co_investment_pref: string | null
+  website: string | null
+  notes: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface Deal {
+  id: string
+  company_id: string | null
+  company_name: string
+  deal_type: DealType
+  amount: number | null
+  currency: Currency
+  amount_usd: number | null
+  deal_date: string
+  lead_investors: string[]
+  co_investors: string[]
+  valuation_pre: number | null
+  valuation_post: number | null
+  use_of_funds: string | null
+  source_url: string | null
+  notes: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface Trend {
+  id: string
+  theme: string
+  slug: string
+  related_sectors: string[]
+  geographic_momentum: string | null
+  key_companies: string[]
+  key_investors: string[]
+  timeline_stage: string | null
+  evidence: string | null
+  analysis_note: string | null
+  published: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface Database {
+  public: {
+    Tables: {
+      companies: { Row: Company; Insert: Partial<Company>; Update: Partial<Company> }
+      investors:  { Row: Investor; Insert: Partial<Investor>; Update: Partial<Investor> }
+      deals:      { Row: Deal; Insert: Partial<Deal>; Update: Partial<Deal> }
+      trends:     { Row: Trend; Insert: Partial<Trend>; Update: Partial<Trend> }
+    }
+  }
+}
