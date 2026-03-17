@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { NextResponse } from 'next/server'
 import type { ScraperJob } from '@/lib/supabase/database.types'
 
@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'invalid signal' }, { status: 400 })
   }
 
-  const supabase = await createClient()
+  const supabase = createAdminClient()
 
   const { data } = await supabase
     .from('scraper_jobs')

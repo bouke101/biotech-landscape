@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     focus_type?: 'startups' | 'investment' | 'all'
   }
 
-  const supabase = await createClient()
+  const supabase = createAdminClient()
 
   // Create a pending job — the GitHub Actions runner will adopt it
   const { data, error } = await supabase
