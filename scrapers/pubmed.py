@@ -52,14 +52,17 @@ def _fetch_summaries(ids: list[str]) -> list[dict]:
     return [result[uid] for uid in uids if uid in result]
 
 
-def fetch_publication_trends() -> pd.DataFrame:
+def fetch_publication_trends(topic: str | None = None) -> pd.DataFrame:
     """
     For each topic, fetch recent PubMed publications and return a
     DataFrame with title, journal, date, and topic.
+    When topic is provided, uses it as a focused search query instead of defaults.
     """
     rows = []
 
-    for topic, query in TOPICS.items():
+    topics_to_search = {topic: topic} if topic else TOPICS
+
+    for topic, query in topics_to_search.items():
         try:
             ids = _search(query)
             summaries = _fetch_summaries(ids)

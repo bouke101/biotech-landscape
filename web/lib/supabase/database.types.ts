@@ -108,8 +108,8 @@ export type ScraperSignal = 'run' | 'pause' | 'stop'
 export interface ScraperJob {
   id: string
   run_id: string
-  trigger: 'scheduled' | 'manual'
-  status: ScraperStatus
+  trigger: 'scheduled' | 'manual' | 'ui'
+  status: ScraperStatus | 'pending'
   signal: ScraperSignal
   current_feed: string | null
   feeds_total: number
@@ -117,6 +117,9 @@ export interface ScraperJob {
   articles_fetched: number
   articles_new: number
   error_message: string | null
+  focus_topic: string | null
+  focus_geography: string | null
+  focus_type: 'startups' | 'investment' | 'all' | null
   started_at: string
   paused_at: string | null
   completed_at: string | null
