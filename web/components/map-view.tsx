@@ -160,7 +160,8 @@ export function MapView({ companies }: { companies: Company[] }) {
   const [colorBy, setColorBy] = useState<ColorByOption>('sector')
   const [tileKey, setTileKey] = useState<TileKey>(() => {
     if (typeof window !== 'undefined') {
-      return (localStorage.getItem('mapTileKey') as TileKey) ?? 'street'
+      const stored = localStorage.getItem('mapTileKey')
+      return (stored && stored in TILE_LAYERS) ? stored as TileKey : 'street'
     }
     return 'street'
   })
@@ -197,7 +198,7 @@ export function MapView({ companies }: { companies: Company[] }) {
   )
 
   return (
-    <div className="relative flex-1" style={{ minHeight: '500px' }}>
+    <div className="relative flex-1" style={{ minHeight: '500px', height: '100%' }}>
       <MapContainer
         center={[52.37, 4.89] as [number, number]}
         zoom={5}
