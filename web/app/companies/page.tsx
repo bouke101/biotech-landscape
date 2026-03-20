@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { getCompanies } from '@/lib/supabase/queries/companies'
 import { CompanyFilterBar } from '@/components/company-filter-bar'
 import { CompaniesTable } from '@/components/companies-table'
@@ -13,8 +14,10 @@ export default async function CompaniesPage() {
       </div>
 
       <div className="bg-white rounded-xl border border-slate-200 mx-5 my-5 overflow-hidden flex flex-col">
-        <CompanyFilterBar />
-        <CompaniesTable companies={companies} />
+        <Suspense>
+          <CompanyFilterBar />
+          <CompaniesTable companies={companies} />
+        </Suspense>
       </div>
     </div>
   )

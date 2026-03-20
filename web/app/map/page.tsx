@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { getCompanies } from '@/lib/supabase/queries/companies'
 import { CompanyFilterBar } from '@/components/company-filter-bar'
 import { MapPageClient } from './map-page-client'
@@ -11,7 +12,9 @@ export default async function MapPage() {
         <h1 className="text-2xl font-bold text-[#0A0F1E] mb-0.5">Map</h1>
         <p className="text-sm text-slate-500">Geographic view of the biotech landscape</p>
       </div>
-      <CompanyFilterBar showSearch />
+      <Suspense>
+        <CompanyFilterBar showSearch />
+      </Suspense>
       <div className="flex-1 relative">
         <MapPageClient companies={companies} />
       </div>
