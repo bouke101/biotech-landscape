@@ -5,7 +5,7 @@ import type { Company } from '@/lib/supabase/database.types'
 
 const MapView = dynamic(
   () => import('@/components/map-view').then(m => m.MapView),
-  { ssr: false, loading: () => <div className="flex-1 bg-slate-100 animate-pulse" /> }
+  { ssr: false, loading: () => <div className="absolute inset-0 bg-slate-100 animate-pulse" /> }
 )
 
 export function MapPageClient({ companies }: { companies: Company[] }) {

@@ -100,7 +100,7 @@ export const COMPANIES: Company[] = [
     stage: 'Series B', employees_approx: 80, total_funding_usd: 52000000, latest_valuation_usd: 210000000,
     key_products: 'Foundry-as-a-Service, strain library construction', business_model: 'B2B',
     partnerships: 'GSK, Syngenta, Imperial College London', ceo: 'Dr. James Whitfield', cso: 'Dr. Priya Sharma', cto: 'Tom Clarke',
-    website: 'eurobio foundry.co.uk', on_watchlist: false,
+    website: 'eurobio-foundry.co.uk', on_watchlist: false,
     notes: 'Infrastructure play. Benefits from any growth in synbio activity.',
     created_at: '2024-01-08T00:00:00Z', updated_at: '2024-03-03T00:00:00Z',
     lat: 51.51, lng: -0.13,
@@ -116,7 +116,7 @@ export const COMPANIES: Company[] = [
     website: 'terraplant.bio', on_watchlist: true,
     notes: 'Strong IP position on microbiome consortia. EU Green Deal tailwind.',
     created_at: '2024-02-10T00:00:00Z', updated_at: '2024-02-28T00:00:00Z',
-    lat: 51.97, lng: 5.66,
+    lat: 51.96, lng: 5.68,
   },
   {
     id: '10', slug: 'carbonloop', name: 'CarbonLoop Biotech', founded_year: 2020,

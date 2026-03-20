@@ -18,7 +18,6 @@ interface CompanyFilterBarProps {
   showColorBy?: boolean
   colorBy?: ColorByOption
   onColorByChange?: (v: ColorByOption) => void
-  resultCount?: number
 }
 
 export function CompanyFilterBar({
@@ -26,7 +25,6 @@ export function CompanyFilterBar({
   showColorBy = false,
   colorBy,
   onColorByChange,
-  resultCount,
 }: CompanyFilterBarProps) {
   const [q, setQ] = useQueryState('q', parseAsString.withDefault(''))
   const [sectors, setSectors] = useQueryState('sector', parseAsArrayOf(parseAsString).withDefault([]))
@@ -104,7 +102,7 @@ export function CompanyFilterBar({
       </div>
 
       {/* Active chips row */}
-      {(hasFilters || resultCount !== undefined) && (
+      {hasFilters && (
         <div className="px-5 py-2 bg-slate-50 border-t border-slate-100 flex items-center gap-2 flex-wrap">
           {activeChips.map(chip => (
             <span
@@ -119,9 +117,6 @@ export function CompanyFilterBar({
             <button onClick={clearAll} className="text-xs text-[#0047CC] hover:underline ml-1">
               Clear all
             </button>
-          )}
-          {resultCount !== undefined && (
-            <span className="ml-auto text-xs text-slate-500">{resultCount} results</span>
           )}
         </div>
       )}
