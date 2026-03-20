@@ -123,7 +123,8 @@ The optimistic entry is visually identical to a real row. No loading spinner or 
 ### Modified files
 | File | Change |
 |---|---|
-| `app/companies/page.tsx` | Add `useOptimistic` state, render `<AddCompanyModal>`, pass optimistic companies to table; show "+ Add Company" button only when not in mock mode |
+| `app/companies/page.tsx` | Remains a server component. Passes fetched companies to `<CompaniesClient>` instead of directly to `<CompaniesTable>`. Hides the add button in mock mode via env check. |
+| `components/companies-client.tsx` | **New client wrapper** (`'use client'`). Owns `useOptimistic` state, renders `<AddCompanyModal>` and `<CompaniesTable>`, wires up the optimistic insert and `router.refresh()` on success. |
 | `components/companies-table.tsx` | Accept `companies` prop as-is (no change needed — optimistic company conforms to `Company` type) |
 | `lib/supabase/queries/companies.ts` | Add `createCompany(data)` function used by the Server Action |
 
