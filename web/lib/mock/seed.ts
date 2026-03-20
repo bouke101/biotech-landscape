@@ -12,6 +12,7 @@ export const COMPANIES: Company[] = [
     cso: 'Prof. Jan Kok', cto: null, website: 'plantkind.nl', on_watchlist: true,
     notes: 'Strong science team out of Wageningen. First mover in NL precision fermentation.',
     created_at: '2024-01-10T00:00:00Z', updated_at: '2024-03-01T00:00:00Z',
+    lat: 51.97, lng: 5.66,
   },
   {
     id: '2', slug: 'cellterra', name: 'CellTerra BioSystems', founded_year: 2019,
@@ -24,6 +25,7 @@ export const COMPANIES: Company[] = [
     website: 'cellterra.bio', on_watchlist: true,
     notes: 'Yes!Delft spin-out. BASF partnership signals corporate validation.',
     created_at: '2024-01-15T00:00:00Z', updated_at: '2024-03-10T00:00:00Z',
+    lat: 52.01, lng: 4.36,
   },
   {
     id: '3', slug: 'mycoform', name: 'MycoForm Materials', founded_year: 2021,
@@ -36,6 +38,7 @@ export const COMPANIES: Company[] = [
     website: 'mycoform.nl', on_watchlist: false,
     notes: 'Early but technically differentiated. Watch scale-up progress.',
     created_at: '2024-02-01T00:00:00Z', updated_at: '2024-02-20T00:00:00Z',
+    lat: 52.37, lng: 4.89,
   },
   {
     id: '4', slug: 'enzymiq', name: 'EnzymiQ Technologies', founded_year: 2018,
@@ -48,6 +51,7 @@ export const COMPANIES: Company[] = [
     website: 'enzymiq.com', on_watchlist: false,
     notes: 'Revenue positive. Novozymes deal is strategic — potential acquisition target.',
     created_at: '2024-01-05T00:00:00Z', updated_at: '2024-03-05T00:00:00Z',
+    lat: 52.16, lng: 4.49,
   },
   {
     id: '5', slug: 'orbio-protein', name: 'Orbio Protein', founded_year: 2022,
@@ -60,6 +64,7 @@ export const COMPANIES: Company[] = [
     website: 'orbioprotein.eu', on_watchlist: true,
     notes: 'Very early but novel feedstock angle. Potential EU EIC candidate.',
     created_at: '2024-02-15T00:00:00Z', updated_at: '2024-02-15T00:00:00Z',
+    lat: 51.05, lng: 3.72,
   },
   {
     id: '6', slug: 'algaforce', name: 'AlgaForce', founded_year: 2017,
@@ -72,6 +77,7 @@ export const COMPANIES: Company[] = [
     website: 'algaforce.dk', on_watchlist: false,
     notes: 'European leader in microalgae. Evonik deal secures distribution.',
     created_at: '2024-01-20T00:00:00Z', updated_at: '2024-03-12T00:00:00Z',
+    lat: 55.68, lng: 12.57,
   },
   {
     id: '7', slug: 'synviro', name: 'SynViro', founded_year: 2020,
@@ -84,6 +90,7 @@ export const COMPANIES: Company[] = [
     website: 'synviro.de', on_watchlist: true,
     notes: 'Strong AI angle. Bayer partnership validates the design platform.',
     created_at: '2024-01-25T00:00:00Z', updated_at: '2024-03-08T00:00:00Z',
+    lat: 48.14, lng: 11.58,
   },
   {
     id: '8', slug: 'biofoundry-eu', name: 'EuroBioFoundry', founded_year: 2019,
@@ -96,6 +103,7 @@ export const COMPANIES: Company[] = [
     website: 'eurobio foundry.co.uk', on_watchlist: false,
     notes: 'Infrastructure play. Benefits from any growth in synbio activity.',
     created_at: '2024-01-08T00:00:00Z', updated_at: '2024-03-03T00:00:00Z',
+    lat: 51.51, lng: -0.13,
   },
   {
     id: '9', slug: 'terraplant', name: 'TerraPlant Biologicals', founded_year: 2021,
@@ -108,6 +116,7 @@ export const COMPANIES: Company[] = [
     website: 'terraplant.bio', on_watchlist: true,
     notes: 'Strong IP position on microbiome consortia. EU Green Deal tailwind.',
     created_at: '2024-02-10T00:00:00Z', updated_at: '2024-02-28T00:00:00Z',
+    lat: 51.97, lng: 5.66,
   },
   {
     id: '10', slug: 'carbonloop', name: 'CarbonLoop Biotech', founded_year: 2020,
@@ -120,6 +129,7 @@ export const COMPANIES: Company[] = [
     website: 'carbonloop.de', on_watchlist: false,
     notes: 'Carbon utilization angle aligns with EU industrial decarbonization.',
     created_at: '2024-01-30T00:00:00Z', updated_at: '2024-03-07T00:00:00Z',
+    lat: 53.55, lng: 9.99,
   },
 ]
 
