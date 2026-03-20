@@ -9,18 +9,26 @@ function toSlug(name: string): string {
     .replace(/^-+|-+$/g, '')
 }
 
+function getNumber(fd: FormData, key: string): number | null {
+  const raw = fd.get(key)
+  if (!raw) return null
+  const n = Number(raw)
+  return Number.isFinite(n) ? n : null
+}
+
 type Result =
   | { success: true; company: Company }
   | { success: false; error: string }
 
 export async function createCompany(formData: FormData): Promise<Result> {
-  const name = (formData.get('name') as string ?? '').trim()
-  const sectors = formData.getAll('sectors') as string[]
+  const name = (formData.get('name')?.toString() ?? '').trim()
+  const sectors = (formData.getAll('sectors') as string[]).map(s => s.trim()).filter(Boolean)
 
   if (!name) return { success: false, error: 'Company name is required.' }
   if (sectors.length === 0) return { success: false, error: 'At least one sector is required.' }
 
   const slug = toSlug(name)
+  if (!slug) return { success: false, error: 'Company name must contain at least one letter or number.' }
 
   const { createClient } = await import('@/lib/supabase/server')
   const supabase = await createClient()
@@ -29,7 +37,7 @@ export async function createCompany(formData: FormData): Promise<Result> {
     name,
     slug,
     sectors,
-    founded_year:         formData.get('founded_year')        ? Number(formData.get('founded_year'))        : null,
+    founded_year:         getNumber(formData, 'founded_year'),
     website:              (formData.get('website')        as string) || null,
     stage:                (formData.get('stage')          as string) || null,
     business_model:       (formData.get('business_model') as string) || null,
@@ -38,9 +46,9 @@ export async function createCompany(formData: FormData): Promise<Result> {
     hq_city:              (formData.get('hq_city')        as string) || null,
     hq_country:           (formData.get('hq_country')     as string) || null,
     hq_region:            (formData.get('hq_region')      as string) || null,
-    total_funding_usd:    formData.get('total_funding_usd')    ? Number(formData.get('total_funding_usd'))    : null,
-    latest_valuation_usd: formData.get('latest_valuation_usd') ? Number(formData.get('latest_valuation_usd')) : null,
-    employees_approx:     formData.get('employees_approx')     ? Number(formData.get('employees_approx'))     : null,
+    total_funding_usd:    getNumber(formData, 'total_funding_usd'),
+    latest_valuation_usd: getNumber(formData, 'latest_valuation_usd'),
+    employees_approx:     getNumber(formData, 'employees_approx'),
     ceo:                  (formData.get('ceo')            as string) || null,
     cso:                  (formData.get('cso')            as string) || null,
     cto:                  (formData.get('cto')            as string) || null,
@@ -53,7 +61,7 @@ export async function createCompany(formData: FormData): Promise<Result> {
 
   const { data, error } = await supabase
     .from('companies')
-    .insert(insert as any)
+    .insert(insert as never)
     .select()
     .single()
 
