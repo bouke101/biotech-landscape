@@ -13,6 +13,7 @@ export async function getCompanies(filters: CompanyFilters = {}): Promise<Compan
   if (filters.stage)  query = query.eq('stage', filters.stage as never)
   if (filters.region) query = query.eq('hq_region', filters.region)
   if (filters.watchlist) query = query.eq('on_watchlist', true)
+  if (filters.hasCoordinates) query = query.not('lat', 'is', null).not('lng', 'is', null)
   const { data, error } = await query
   if (error) throw error
   return data ?? []
