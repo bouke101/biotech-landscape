@@ -27,6 +27,8 @@ export interface Company {
   website: string | null
   notes: string | null
   on_watchlist: boolean
+  lat: number | null
+  lng: number | null
   created_at: string
   updated_at: string
 }
