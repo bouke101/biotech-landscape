@@ -16,13 +16,13 @@ Allow the user to manually add a new company directly from the `/companies` tabl
 
 An "+ Add Company" button sits in the top-right area of the companies page, visually grouped with the filter bar. It opens the modal on click.
 
-The button is hidden when `NEXT_PUBLIC_USE_MOCK_DATA` is active — inserting a real record requires a live Supabase connection.
+The button is hidden when mock mode is on. Mock mode is active when `process.env.NEXT_PUBLIC_USE_MOCK_DATA !== 'false'` (consistent with how the existing query files detect mock mode). Inserting a real record requires a live Supabase connection.
 
 ---
 
 ## 2. Modal Form
 
-A centered overlay modal with sticky header and footer. The table is dimmed behind it. Scrollable body for the full field set.
+A centered overlay modal with sticky header and footer. The table is dimmed behind it. Scrollable body for the full field set. Built with custom Tailwind components consistent with the existing codebase (no shadcn/ui Dialog — use a plain `<div>` overlay pattern as seen in `map-view.tsx` popups).
 
 ### Sections and fields
 
@@ -36,7 +36,7 @@ A centered overlay modal with sticky header and footer. The table is dimmed behi
 **Classification**
 | Field | Type | Required |
 |---|---|---|
-| Sector(s) | multi-select (11 sectors from taxonomy) | ✓ |
+| Sector(s) | multi-select (12 sectors from taxonomy — same list as `CompanyFilterBar`) | ✓ |
 | Stage | dropdown (Stealth → Acquired) | — |
 | Business model | dropdown (B2B / B2C / Licensing / Platform / Mixed) | — |
 | Tech platform | text | — |
@@ -76,13 +76,20 @@ Detailed per-round investor data (who funded, how much, when) is **out of scope*
 
 ## 3. Slug Generation
 
-Slug is derived from the company name client-side before submission:
-- Lowercase
-- Replace spaces and special characters with hyphens
-- Strip leading/trailing hyphens
-- Example: `"PlantKind Fermentation B.V."` → `"plantkind-fermentation-bv"`
+Slug is derived from the company name client-side before submission using this algorithm (no external library):
 
-If the generated slug already exists in the database, the Server Action returns a validation error and the modal stays open with an appropriate message.
+```ts
+function toSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')  // replace any non-alphanumeric run with a hyphen
+    .replace(/^-+|-+$/g, '')       // strip leading/trailing hyphens
+}
+```
+
+Example: `"PlantKind Fermentation B.V."` → `"plantkind-fermentation-bv"`
+
+If the generated slug already exists in the database, the Supabase unique constraint throws an error. The Server Action catches it and returns `{ success: false, error: 'A company with this name already exists.' }`. The modal stays open.
 
 ---
 
@@ -90,14 +97,18 @@ If the generated slug already exists in the database, the Server Action returns 
 
 The companies page uses React's `useOptimistic` to add the new company row to the table instantly on form submit, before the server responds.
 
-Flow:
-1. User clicks Save
-2. `useOptimistic` appends the new company to the displayed list immediately
-3. Server Action fires (`createCompany`)
-4. **On success:** `router.refresh()` syncs real server data; optimistic entry is replaced
-5. **On failure:** optimistic entry disappears; a brief inline error message is shown at the top of the modal (modal stays open so the user can correct and retry)
+State ownership:
+- `<CompaniesClient>` owns: `useOptimistic` companies list, modal open/close boolean, error string
+- `<AddCompanyModal>` receives: `open`, `onClose`, `error` as props; calls the server action and passes the result back via an `onSubmit` callback prop
 
-The optimistic entry is visually identical to a real row. No loading spinner or "saving…" state needed — the table just has the new row instantly.
+Flow:
+1. User clicks Save in the modal
+2. Modal calls `onSubmit(formData)`
+3. `<CompaniesClient>` applies the optimistic update (appends new company to list) and fires the Server Action
+4. **On success:** closes modal, clears error, calls `router.refresh()` to sync real server data
+5. **On failure:** reverts optimistic entry, sets error string, modal stays open showing the error at the top
+
+The optimistic entry is visually identical to a real row. No loading spinner needed — the table just has the new row instantly.
 
 ---
 
