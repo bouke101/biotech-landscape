@@ -57,7 +57,7 @@ const columns = [
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
         <button
-          onClick={() => row.toggleExpanded()}
+          onClick={e => { e.stopPropagation(); row.toggleExpanded() }}
           className="text-slate-400 hover:text-slate-600 w-4 text-center flex-shrink-0"
         >
           {row.getIsExpanded() ? '▼' : '▶'}
@@ -213,7 +213,7 @@ export function CompaniesTable({ companies }: { companies: Company[] }) {
                   ))}
                 </tr>
                 {row.getIsExpanded() && (
-                  <tr className="bg-blue-50/30 border-b-2 border-blue-100">
+                  <tr key={`${row.id}-expanded`} className="bg-blue-50/30 border-b-2 border-blue-100">
                     <td colSpan={columns.length} className="px-8 py-4">
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                         <Detail label="Key Products" value={row.original.key_products} />

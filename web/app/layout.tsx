@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Nav } from '@/components/nav'
 import './globals.css'
 
@@ -14,10 +15,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={geist.variable}>
       <body className="antialiased bg-[#f4f5f7] font-sans">
-        <Nav />
-        <main className="ml-56 min-h-screen p-8">
-          {children}
-        </main>
+        <NuqsAdapter>
+          <Nav />
+          <main className="ml-56 min-h-screen p-8">
+            {children}
+          </main>
+        </NuqsAdapter>
       </body>
     </html>
   )
