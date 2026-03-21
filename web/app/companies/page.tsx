@@ -4,6 +4,8 @@ import { CompaniesClient } from '@/components/companies-client'
 
 export default async function CompaniesPage() {
   const companies = await getCompanies()
+  // Only show the add button when connected to a real Supabase instance.
+  // The env var must be explicitly set to the string 'false' to enable live mode.
   const showAddButton = process.env.NEXT_PUBLIC_USE_MOCK_DATA === 'false'
 
   return (

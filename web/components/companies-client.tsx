@@ -8,6 +8,13 @@ import { AddCompanyModal } from './add-company-modal'
 import { createCompany } from '@/app/actions/companies'
 import type { Company, CompanyStage, BusinessModel } from '@/lib/supabase/database.types'
 
+function toSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
 interface CompaniesClientProps {
   companies: Company[]
   showAddButton: boolean
@@ -31,10 +38,11 @@ export function CompaniesClient({ companies, showAddButton }: CompaniesClientPro
 
   function handleSubmit(formData: FormData) {
     // Build an optimistic placeholder from form data
+    const name = formData.get('name')?.toString() ?? ''
     const optimistic: Company = {
       id: `optimistic-${Date.now()}`,
-      name: formData.get('name') as string,
-      slug: '',
+      name,
+      slug: toSlug(name),
       sectors: formData.getAll('sectors') as string[],
       stage: (formData.get('stage') as CompanyStage | null) || null,
       hq_city: (formData.get('hq_city') as string) || null,
@@ -89,7 +97,7 @@ export function CompaniesClient({ companies, showAddButton }: CompaniesClientPro
       <CompaniesTable companies={optimisticCompanies} />
       <AddCompanyModal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={() => { setModalOpen(false); setError(null) }}
         error={error}
         onSubmit={handleSubmit}
       />
