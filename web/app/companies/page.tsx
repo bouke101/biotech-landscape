@@ -1,10 +1,10 @@
 import { Suspense } from 'react'
 import { getCompanies } from '@/lib/supabase/queries/companies'
-import { CompanyFilterBar } from '@/components/company-filter-bar'
-import { CompaniesTable } from '@/components/companies-table'
+import { CompaniesClient } from '@/components/companies-client'
 
 export default async function CompaniesPage() {
   const companies = await getCompanies()
+  const showAddButton = process.env.NEXT_PUBLIC_USE_MOCK_DATA === 'false'
 
   return (
     <div className="flex flex-col h-full">
@@ -15,8 +15,7 @@ export default async function CompaniesPage() {
 
       <div className="bg-white rounded-xl border border-slate-200 mx-5 my-5 overflow-hidden flex flex-col">
         <Suspense>
-          <CompanyFilterBar />
-          <CompaniesTable companies={companies} />
+          <CompaniesClient companies={companies} showAddButton={showAddButton} />
         </Suspense>
       </div>
     </div>
