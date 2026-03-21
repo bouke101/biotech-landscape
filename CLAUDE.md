@@ -22,8 +22,8 @@ A comprehensive intelligence platform for mapping, analyzing, and tracking the g
 | **Synthetic Biology** | Metabolic engineering, cell-free systems, genetic circuits |
 | **Agricultural Biotech** | Biofertilizers, biopesticides, microbiome, crop engineering |
 | **Food Biotech** | Functional ingredients, food fermentation, food safety |
-| **Biopharmaceuticals** | Biologics, mRNA, cell & gene therapy, biosimilars |
-| **Environmental Biotech** | Bioremediation, carbon capture, waste valorization |
+|  |  |
+|  |  |
 | **Digital Biotech** | AI/ML in drug discovery, bioprocess AI, digital twins |
 | **Biomanufacturing** | Scale-up platforms, CMOs, biofoundries, automation |
 
