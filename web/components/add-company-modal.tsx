@@ -34,18 +34,22 @@ export function AddCompanyModal({ open, onClose, error, onSubmit }: AddCompanyMo
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ background: 'rgba(0,0,0,0.4)' }}
       onClick={e => { if (e.target === e.currentTarget) onClose() }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="add-company-modal-title"
     >
       <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl">
         {/* Header */}
         <div className="flex items-start justify-between px-6 py-4 border-b border-slate-200 flex-shrink-0">
           <div>
-            <h2 className="text-lg font-bold text-[#0A0F1E]">Add Company</h2>
+            <h2 id="add-company-modal-title" className="text-lg font-bold text-[#0A0F1E]">Add Company</h2>
             <p className="text-sm text-slate-500 mt-0.5">New entry will appear in the table immediately</p>
           </div>
           <button
             type="button"
             onClick={onClose}
             className="text-slate-400 hover:text-slate-600 text-xl leading-none mt-0.5"
+            aria-label="Close"
           >
             ✕
           </button>
@@ -217,11 +221,11 @@ export function AddCompanyModal({ open, onClose, error, onSubmit }: AddCompanyMo
 
 // Small helpers to keep form markup DRY
 function Label({ children }: { children: React.ReactNode }) {
-  return <div className="text-xs font-medium text-slate-600 mb-1.5">{children}</div>
+  return <label className="text-xs font-medium text-slate-600 mb-1.5 block">{children}</label>
 }
 
 function Required() {
-  return <span className="text-red-500 ml-0.5">*</span>
+  return <span aria-hidden="true" className="text-red-500 ml-0.5">*</span>
 }
 
 function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInputElement>) {
